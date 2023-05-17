@@ -45,9 +45,10 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showall(Request $request)
     {
-        //
+        $details=Nameform::all();
+        return view('details',compact('details'));
     }
 
     /**
@@ -61,16 +62,37 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        $validated=$request->validate([
+            'name'=>'required',
+            'email'=>'required|email'
+        ]);
+        $form=Nameform::find($id);
+        $form->name=$request->input('name');
+        $form->gender=$request->input('gender');
+        $form->course=$request->input('course');
+        $form->email=$request->input('email');
+        $form->save();
+        return redirect('/details');
+
+        
+    }
+    public function update_view($id)
+    {
+        $form=Nameform::find($id);
+        return view('update',compact('form'));
+
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete($id)
     {
-        //
+        $data=Nameform::find($id);
+        $data->delete();
+        return redirect('/details');
     }
 }

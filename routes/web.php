@@ -24,3 +24,13 @@ Route::get('/nameform',
 
 Route::post('/nameform',
  [FormController::class,'register']);
+
+Route::get('/details',
+ [FormController::class,'showall']);
+Route::get('/delete/{id}',
+ [FormController::class,'delete']);
+ Route::get('/update_view/{id}',
+ [FormController::class,'update_view']);
+ Route::post('/update/{id}',
+ [FormController::class,'update']);
+
