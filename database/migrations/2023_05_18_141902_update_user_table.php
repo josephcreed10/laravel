@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nameform', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('course');
+        Schema::table('users', function (Blueprint $table) {
             $table->string('gender');
-            $table->string('email');
-            $table->timestamps();
+            $table->string('course');
         });
+    
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nameform');
+        //
     }
 };

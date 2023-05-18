@@ -33,4 +33,10 @@ Route::get('/delete/{id}',
  [FormController::class,'update_view']);
  Route::post('/update/{id}',
  [FormController::class,'update']);
+ Route::get('/loginpage',
+ [FormController::class,'loginpage']);
+ Route::post('/login',
+ [FormController::class,'login']);
+ Route::get('/dashboard',
+ [FormController::class,'dashboard']);
 

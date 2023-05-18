@@ -16,9 +16,13 @@
     <h1> Student Registeration Form</h1>
   <hr>  
   <label> Name </label>   
-<input type="text" name="name" placeholder= "Name" size="15" required />   <br>
+<input type="text" name="name" placeholder= "Name" size="15"  />   <br>
+ 
+
+<label>Password </label>   
+<input type="password" name="password" placeholder= "Password"/>   <br>
 Course :  
-</label>   
+</label>
 
 <select name="course">  
 <option value="BCA">BCA</option>  
