@@ -2,7 +2,7 @@
 <html>   
 <head>  
 <meta name="viewport" content="width=device-width, initial-scale=1">  
-<title> Registration Page </title>  
+<title> Update Page </title>  
 <style>   
 Body {  
   font-family: Calibri, Helvetica, sans-serif;  
@@ -47,32 +47,33 @@ button {
 <body>
 <br>  
 <br>  <center>
-<form action="{{url('update',$form->id)}}" method="post">
+<?php $id=Auth::id();?>
+<form action="{{url('edit',Auth::id())}}" method="post">
   @csrf  
   <div class="container">  
     <h1>Update Student  Form</h1>
   <hr>  
 
-<input type="text" name="name" value="{{$form->name}}" placeholder= "Name" size="15"/>   <br>
+<input type="text" name="name" value="{{Auth::user()->name}}" placeholder= "Name" size="15"/>   <br>
 Course :  
 </label>   
 
 <select name="course">  
-<option value="BCA" <?php if($form->course=="BCA") print "selected"; ?>>BCA</option>  
-<option value="BBA" <?php if($form->course=="BBA") print "selected"; ?>>BBA</option>  
-<option value="B.Tech" <?php if($form->course=="B.Tech") print "selected"; ?>>B.Tech</option>  
-<option value="MBA" <?php if($form->course=="MBA") print "selected"; ?>>MBA</option>  
-<option value="MCA" <?php if($form->course=="MCA") print "selected"; ?>>MCA</option>  
-<option value="M.Tech" <?php if($form->course=="M.Tech") print "selected"; ?>>M.Tech</option>  
+<option value="BCA" <?php if(Auth::user()->course=="BCA") print "selected"; ?>>BCA</option>  
+<option value="BBA" <?php if(Auth::user()->course=="BBA") print "selected"; ?>>BBA</option>  
+<option value="B.Tech" <?php if(Auth::user()->course=="B.Tech") print "selected"; ?>>B.Tech</option>  
+<option value="MBA" <?php if(Auth::user()->course=="MBA") print "selected"; ?>>MBA</option>  
+<option value="MCA" <?php if(Auth::user()->course=="MCA") print "selected"; ?>>MCA</option>  
+<option value="M.Tech" <?php if(Auth::user()->course=="M.Tech") print "selected"; ?>>M.Tech</option>  
 </select>  
 <label>   <br>
 Gender :  
 </label><br>  
-<input type="radio" value="Male" name="gender" <?php if($form->gender=="Male") print "checked"; ?>> Male   
-<input type="radio" value="Female" name="gender" <?php if($form->gender=="Female") print "checked"; ?>> Female   
-<input type="radio" value="Other" name="gender" <?php if($form->gender=="Other") print "checked"; ?>> Other  
+<input type="radio" value="Male" name="gender" <?php if(Auth::user()->gender=="Male") print "checked"; ?>> Male   
+<input type="radio" value="Female" name="gender" <?php if(Auth::user()->gender=="Female") print "checked"; ?>> Female   
+<input type="radio" value="Other" name="gender" <?php if(Auth::user()->gender=="Other") print "checked"; ?>> Other  
    <br>
- <input type="text" placeholder="Enter Email" name="email"  value="{{$form->email}}" >    <br>
+ <input type="text" placeholder="Enter Email" name="email"  value="{{Auth::user()->email}}" >    <br>
  <button type="submit" class="registerbtn">Update</button>
 </form>  
   </div>

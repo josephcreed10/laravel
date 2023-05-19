@@ -22,12 +22,26 @@ class FormController extends Controller
         return view('loginpage');
     }
 
+    public function logout()
+    {
+        Auth::logout();
+ 
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+    }
+
     public function login(Request $request)
     {
 
-        if(auth()->attempt(request()->only(['email','password'])))
-        {
-           return redirect('/dashboard');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('dashboard');
         }
         
         return back()->withErrors([
@@ -70,7 +84,7 @@ class FormController extends Controller
      */
     public function showall(Request $request)
     {
-        $details=Nameform::all();
+        $details=User::all();
         return view('details',compact('details'));
     }
 
@@ -89,9 +103,9 @@ class FormController extends Controller
     {
         $validated=$request->validate([
             'name'=>'required',
-            'email'=>'required|email'
+            'email'=>'required|email|unique:users,email'
         ]);
-        $form=Nameform::find($id);
+        $form=User::find($id);
         $form->name=$request->input('name');
         $form->gender=$request->input('gender');
         $form->course=$request->input('course');
@@ -103,10 +117,14 @@ class FormController extends Controller
     }
     public function update_view($id)
     {
-        $form=Nameform::find($id);
+        $form=User::find($id);
         return view('update',compact('form'));
 
         
+    }
+    public function edit_view()
+    {
+        return view('edit_view');
     }
 
     /**
@@ -114,8 +132,26 @@ class FormController extends Controller
      */
     public function delete($id)
     {
-        $data=Nameform::find($id);
+        $data=User::find($id);
         $data->delete();
         return redirect('/details');
+    }
+
+
+public function edit(Request $request,$id)
+    {
+        $validated=$request->validate([
+            'name'=>'required',
+            'email'=>'required|email|unique:users,email->ignore(auth()->id()'
+        ]);
+        $form=User::find($id);
+        $form->name=$request->input('name');
+        $form->gender=$request->input('gender');
+        $form->course=$request->input('course');
+        $form->email=$request->input('email');
+        $form->save();
+        return redirect('/dashboard');
+
+        
     }
 }

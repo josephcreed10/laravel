@@ -39,4 +39,11 @@ Route::get('/delete/{id}',
  [FormController::class,'login']);
  Route::get('/dashboard',
  [FormController::class,'dashboard']);
+ Route::get('/logout',
+ [FormController::class,'logout']);
+ Route::post('/edit/{id}',
+ [FormController::class,'edit']);
+ Route::get('/edit_view',
+ [FormController::class,'edit_view']);
+
 
